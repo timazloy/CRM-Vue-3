@@ -7,6 +7,7 @@ export default  createRouter({
         {
             path: '/',
             component: Home,
+            meta: {layout: 'main'},
             name: 'vHome'
         },
         {
