@@ -13,7 +13,7 @@
             class="form-error"
             v-for="(element, index) of v.emailField.$errors"
             :key="index">
-          <div class="form-error__message">{{element.$message}}</div>
+          <div class="helper-text invalid">{{element.$message}}</div>
         </div>
       </div>
       <div class="input-field">
@@ -28,7 +28,7 @@
             class="form-error"
             v-for="(element, index) of v.passwordField.$errors"
             :key="index">
-          <div class="form-error__message">{{element.$message}}</div>
+          <div class="helper-text invalid">{{element.$message}}</div>
         </div>
       </div>
     </div>
