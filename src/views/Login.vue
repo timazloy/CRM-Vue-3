@@ -7,6 +7,7 @@
             id="email"
             type="text"
             v-model.trim="emailField"
+            :class="v.emailField.$errors.length && 'invalid'"
         >
         <label for="email">Email</label>
         <div
@@ -22,6 +23,7 @@
             type="password"
             class="validate"
             v-model.trim="passwordField"
+            :class="v.passwordField.$errors.length && 'invalid'"
         >
         <label for="password">Пароль</label>
         <div
