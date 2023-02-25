@@ -1,26 +1,35 @@
 <template>
-  <form class="card auth-card" @submit.prevent="onSubmit">
+  <form class="card auth-card" @submit.prevent="submitForm">
     <div class="card-content">
       <span class="card-title">Домашняя бухгалтерия</span>
       <div class="input-field">
         <input
             id="email"
             type="text"
-            v-model.trim="email"
-            :class="{invalid: ($v.email.$dirty && $v.email.required)}"
-
+            v-model.trim="emailField"
         >
         <label for="email">Email</label>
-        <small class="helper-text invalid">Email</small>
+        <div
+            class="form-error"
+            v-for="(element, index) of v.emailField.$errors"
+            :key="index">
+          <div class="form-error__message">{{element.$message}}</div>
+        </div>
       </div>
       <div class="input-field">
         <input
             id="password"
             type="password"
             class="validate"
+            v-model.trim="passwordField"
         >
         <label for="password">Пароль</label>
-        <small class="helper-text invalid">Password</small>
+        <div
+            class="form-error"
+            v-for="(element, index) of v.passwordField.$errors"
+            :key="index">
+          <div class="form-error__message">{{element.$message}}</div>
+        </div>
       </div>
     </div>
     <div class="card-action">
@@ -43,34 +52,43 @@
 </template>
 
 <script>
-import { useVuelidate } from '@vuelidate/core'
-import { required, email, minLength } from '@vuelidate/validators'
-
 export default {
   name: 'vLogin',
-  data: () => ({
-    email: '',
-    password: '',
-    v$: useVuelidate,
-  }),
-  validations: () => ({
-    email: { required, email },
-    password: {required, minLength: minLength((6))},
-  }),
-  methods: {
-    onSubmit() {
-      if (this.$v.$invalid) {
-        this.$v.$touch()
-        console.log(123)
-        return
-      }
-      this.$router.push('/')
-    }
+}
+</script>
+
+<script setup>
+import {ref, computed} from 'vue'
+import useVuelidate from '@vuelidate/core'
+import {helpers, minLength, email, required } from '@vuelidate/validators'
+
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+const emailField = ref('')
+const passwordField = ref('')
+
+
+const rules = computed(() => ({
+  passwordField: {
+    minLength: helpers.withMessage(`Минимальная длина: 3 символа`, minLength(3)),
+    required: helpers.withMessage('Введите пароль', required)
   },
-  mounted() {
-    console.log(required)
-    console.log(email)
-    console.log(minLength)
+  emailField: {
+    email: helpers.withMessage('Введите корректный email', email),
+    required: helpers.withMessage('Введите email', required)
+  },
+
+}))
+
+const v = useVuelidate(rules, { emailField, passwordField})
+
+const submitForm = () => {
+  if (v.value.$invalid) {
+    v.value.$touch()
+    return
+  } else {
+    router.push('/')
   }
 }
 </script>
