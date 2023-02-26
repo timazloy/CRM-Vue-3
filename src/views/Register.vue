@@ -71,7 +71,7 @@
           </div>
           <p>
             <label>
-              <input type="checkbox" />
+              <input type="checkbox" @click="!checkbox" v-model="checkbox"/>
               <span>С правилами согласен</span>
             </label>
           </p>
@@ -81,6 +81,7 @@
             <button
                 class="btn waves-effect waves-light auth-submit"
                 type="submit"
+                :disabled="!checkbox"
             >
               Зарегистрироваться
               <i class="material-icons right">send</i>
@@ -117,6 +118,7 @@ const emailField = ref('')
 const passwordField = ref('')
 const nameField = ref('')
 const confirmPasswordField = ref('')
+const checkbox = ref(false)
 
 
 const rules = computed(() => ({
@@ -144,6 +146,12 @@ const submitForm = () => {
     return
   } else {
     router.push('/')
+  }
+
+  const formData = {
+    email: emailField.value,
+    password: passwordField.value,
+    name: nameField.value,
   }
 }
 </script>
