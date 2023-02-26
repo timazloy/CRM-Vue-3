@@ -63,9 +63,12 @@ export default {
 import {ref, computed} from 'vue'
 import useVuelidate from '@vuelidate/core'
 import {helpers, minLength, email, required } from '@vuelidate/validators'
+import {toast} from "@/utils/message.plugin";
+import messages from "@/utils/messages";
 
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
+const route = useRoute()
 
 const emailField = ref('')
 const passwordField = ref('')
@@ -92,7 +95,17 @@ const submitForm = () => {
   } else {
     router.push('/')
   }
+
+  const formData = {
+    email: emailField.value,
+    password: passwordField.value,
+  }
 }
+
+if (messages[route.query.message]) {
+  toast(messages[route.query.message])
+}
+
 </script>
 
 <style lang="scss">
