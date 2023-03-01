@@ -100,6 +100,8 @@ const submitForm = () => {
     email: emailField.value,
     password: passwordField.value,
   }
+
+  
 }
 
 if (messages[route.query.message]) {
