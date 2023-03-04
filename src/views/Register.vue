@@ -112,7 +112,9 @@ import useVuelidate from '@vuelidate/core'
 import {helpers, minLength, email, required, sameAs } from '@vuelidate/validators'
 
 import { useRouter } from 'vue-router'
+import { useStore } from "vuex";
 const router = useRouter()
+const store = useStore()
 
 const emailField = ref('')
 const passwordField = ref('')
@@ -140,18 +142,24 @@ const rules = computed(() => ({
 
 const v = useVuelidate(rules, { emailField, passwordField, nameField, confirmPasswordField})
 
-const submitForm = () => {
+const submitForm = async () => {
   if (v.value.$invalid) {
     v.value.$touch()
     return
   } else {
-    router.push('/')
-  }
+    const formData = {
+      email: emailField.value,
+      password: passwordField.value,
+      name: nameField.value,
+    }
 
-  const formData = {
-    email: emailField.value,
-    password: passwordField.value,
-    name: nameField.value,
+    try {
+      await store.dispatch('register', formData)
+      router.push('/')
+    } catch (e) {
+      // empty
+    }
+
   }
 }
 </script>

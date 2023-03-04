@@ -40,7 +40,11 @@
 </template>
 <script>
 import M from 'materialize-css'
+// import { useStore } from "vuex";
+
 // import dateFilter from "@/filters/date.filter";
+
+// const store = useStore()
 
 export default {
   name: "vNavbar",
@@ -51,8 +55,8 @@ export default {
     options: {},
   }),
   methods: {
-    logout() {
-      console.log('logout')
+    async logout() {
+      await this.$store.dispatch('logout')
       this.$router.push('/login?message=logout')
     },
   },
@@ -89,6 +93,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>
