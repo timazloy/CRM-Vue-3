@@ -67,8 +67,10 @@ import {toast} from "@/utils/message.plugin";
 import messages from "@/utils/messages";
 
 import { useRouter, useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 const router = useRouter()
 const route = useRoute()
+const store = useStore()
 
 const emailField = ref('')
 const passwordField = ref('')
@@ -88,18 +90,26 @@ const rules = computed(() => ({
 
 const v = useVuelidate(rules, { emailField, passwordField})
 
-const submitForm = () => {
+const submitForm = async () => {
   if (v.value.$invalid) {
     v.value.$touch()
     return
   } else {
-    router.push('/')
+    const formData = {
+      email: emailField.value,
+      password: passwordField.value,
+    }
+
+    try {
+      await store.dispatch('login', formData)
+      router.push('/')
+    } catch (e) {
+      // empty
+    }
+
   }
 
-  const formData = {
-    email: emailField.value,
-    password: passwordField.value,
-  }
+
 
   
 }
