@@ -7,8 +7,6 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 
-
-
 const firebaseConfig = {
     apiKey: "AIzaSyAT_D1nADQfQpyBK3qzxjhdhZzV6nyeyB4",
     authDomain: "vue3-crm-33170.firebaseapp.com",
