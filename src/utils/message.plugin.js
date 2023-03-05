@@ -4,5 +4,5 @@ export function toast(text) {
     M.toast({html: text})
 }
 export function toastError(text) {
-    M.toast({html: `[ошибка] ${text}`})
+    M.toast({html: `[Ошибка] ${text}`})
 }

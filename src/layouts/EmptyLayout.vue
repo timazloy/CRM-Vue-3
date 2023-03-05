@@ -6,7 +6,7 @@
 
 <script>
 import messages from "@/utils/messages";
-import {toast} from "@/utils/message.plugin";
+import {toast, toastError} from "@/utils/message.plugin";
 
 export default {
   computed: {
@@ -16,10 +16,13 @@ export default {
   },
   watch: {
     error(fbError) {
+      let error = null
       if (fbError.code.includes('auth/user-not-found'))
-        toast('Пользователя с таким email не существует')
-      else
-        toast('Что-то пошло не так')
+        error = 'auth/user-not-found'
+      else if (fbError.code.includes('auth/wrong-password'))
+        error = 'auth/wrong-password'
+
+      toastError(messages[error] || 'Что-то пошло не так')
     }
   }
 }
