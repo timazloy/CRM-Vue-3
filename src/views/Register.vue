@@ -125,7 +125,7 @@ const checkbox = ref(false)
 
 const rules = computed(() => ({
   passwordField: {
-    minLength: helpers.withMessage(`Минимальная длина: 3 символа`, minLength(3)),
+    minLength: helpers.withMessage(`Минимальная длина: 6 символов`, minLength(6)),
     required: helpers.withMessage('Введите пароль', required)
   },
   emailField: {

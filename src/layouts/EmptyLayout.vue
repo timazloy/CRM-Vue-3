@@ -16,11 +16,8 @@ export default {
   },
   watch: {
     error(fbError) {
-      let error = null
-      if (fbError.code.includes('auth/user-not-found'))
-        error = 'auth/user-not-found'
-      else if (fbError.code.includes('auth/wrong-password'))
-        error = 'auth/wrong-password'
+      const regForError = /(?<=\()[^)]+(?=\))/g
+      const error = String(fbError).match(regForError)[0]
 
       toastError(messages[error] || 'Что-то пошло не так')
     }
