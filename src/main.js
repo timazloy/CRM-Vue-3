@@ -10,6 +10,7 @@ import 'firebase/compat/firestore';
 const firebaseConfig = {
     apiKey: "AIzaSyAT_D1nADQfQpyBK3qzxjhdhZzV6nyeyB4",
     authDomain: "vue3-crm-33170.firebaseapp.com",
+    databaseURL: "https://vue3-crm-33170-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "vue3-crm-33170",
     storageBucket: "vue3-crm-33170.appspot.com",
     messagingSenderId: "491182782434",

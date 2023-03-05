@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
-
+import 'firebase/database'
+import { getDatabase, ref, set } from "firebase/database";
 
 export default {
     actions: {
@@ -13,12 +14,13 @@ export default {
         },
         async register({dispatch, commit}, {email, password, name}) {
             try {
+                const db = getDatabase()
+                const uid = await dispatch('getUid')
+
                 await firebase.auth().createUserWithEmailAndPassword(email, password)
-                const uid = dispatch('getUid')
-                await firebase.database().ref(`/users${uid}/info`).set({
-                    bill: 100000,
-                    name
-                })
+                await set(ref(db, 'users/' + uid), {
+                    username: name,
+                });
             } catch (e) {
                 commit('setError', e)
                 throw e
@@ -28,8 +30,9 @@ export default {
             const user = firebase.auth().currentUser
             return user ? user.uid : null
         },
-        async logout() {
+        async logout({commit}) {
           await firebase.auth().signOut()
+          commit('clearInfo')
         },
     }
 }

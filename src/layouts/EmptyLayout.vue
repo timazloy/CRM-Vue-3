@@ -17,8 +17,10 @@ export default {
   watch: {
     error(fbError) {
       const regForError = /(?<=\()[^)]+(?=\))/g
-      const error = String(fbError).match(regForError)[0]
+      // const error = String(fbError).match(regForError) === null ? 'other' : String(fbError).match(regForError)[0]
 
+      const error = String(fbError).match(regForError)[0]
+      // toastError(messages[error])
       toastError(messages[error] || 'Что-то пошло не так')
     }
   }
