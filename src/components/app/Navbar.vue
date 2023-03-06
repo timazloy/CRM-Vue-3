@@ -74,7 +74,7 @@ export default {
       return new Intl.DateTimeFormat('ru-RU', options).format(new Date())
     },
     name() {
-      return this.$store.getters.info.name
+      return this.$store.getters.info
     },
 
   },

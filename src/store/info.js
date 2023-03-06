@@ -1,4 +1,5 @@
 import firebase from 'firebase/compat/app';
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 export default {
     state: {
@@ -16,10 +17,17 @@ export default {
       async fetchInfo({dispatch, commit}) {
           try {
               const uid = await dispatch('getUid')
-              const info = (await firebase.database().ref(`/users/${uid}/info`).once('value')).val()
-              commit('setInfo', info)
+
+              const db = getDatabase();
+              const starCountRef = ref(db, `/users/${uid}/info`);
+
+              onValue(starCountRef, (snapshot) => {
+                  const data = snapshot.val().username;
+                  console.log(data)
+                  commit('setInfo', data)
+              });
           } catch (e) {
-            // empty
+              console.log(e)
           }
 
       }
