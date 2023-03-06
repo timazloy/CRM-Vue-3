@@ -18,8 +18,10 @@ export default {
                 const uid = await dispatch('getUid')
 
                 await firebase.auth().createUserWithEmailAndPassword(email, password)
-                await set(ref(db, 'users/' + uid), {
+                await set(ref(db, `/users${uid}/info`
+                ), {
                     username: name,
+                    bill: 100000,
                 });
             } catch (e) {
                 commit('setError', e)
