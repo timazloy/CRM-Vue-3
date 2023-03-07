@@ -22,8 +22,10 @@ export default {
               const starCountRef = ref(db, `/users/${uid}/info`);
 
               onValue(starCountRef, (snapshot) => {
-                  const data = snapshot.val().username;
-                  console.log(data)
+                  const data = {
+                      name: snapshot.val().username,
+                      bill: snapshot.val().username
+                  }
                   commit('setInfo', data)
               });
           } catch (e) {

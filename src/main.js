@@ -5,6 +5,7 @@ import store from './store'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import Loader from "@/components/app/Loader";
 
 
 const firebaseConfig = {
@@ -20,9 +21,11 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig)
 
+const app = createApp(App);
+app.component('vLoader', Loader )
+
 
 firebase.auth().onAuthStateChanged(() => {
-    const app = createApp(App);
     app.use(router)
     app.use(store)
     app.mount('#app')

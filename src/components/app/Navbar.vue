@@ -40,11 +40,6 @@
 </template>
 <script>
 import M from 'materialize-css'
-// import { useStore } from "vuex";
-
-// import dateFilter from "@/filters/date.filter";
-
-// const store = useStore()
 
 export default {
   name: "vNavbar",
@@ -74,7 +69,7 @@ export default {
       return new Intl.DateTimeFormat('ru-RU', options).format(new Date())
     },
     name() {
-      return this.$store.getters.info
+      return this.$store.getters.info.name
     },
 
   },
