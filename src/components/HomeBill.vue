@@ -35,6 +35,7 @@ export default {
       return Math.floor(this.base * this.rates[currency])
     }
   },
+ 
 }
 </script>
 

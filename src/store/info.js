@@ -24,7 +24,7 @@ export default {
               onValue(starCountRef, (snapshot) => {
                   const data = {
                       name: snapshot.val().username,
-                      bill: snapshot.val().username
+                      bill: snapshot.val().bill
                   }
                   commit('setInfo', data)
               });
