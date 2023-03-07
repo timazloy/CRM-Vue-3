@@ -10,8 +10,7 @@
         </button>
       </div>
 
-      <Loader v-if="loading"/>
-      
+      <vLoader v-if="loading"/>
 
       <div v-else class="row">
         <HomeBill/>
@@ -36,6 +35,6 @@ export default {
   components: {
     HomeBill,
     HomeCurrency
-  }
+  },
 }
 </script>
