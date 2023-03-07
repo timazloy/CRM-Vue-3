@@ -10,7 +10,7 @@
             class="currency-line"
         >
           <span>
-            {{getCurrency(cur)}}
+            {{currencyFilter(cur)}}
           </span>
         </p>
       </div>
@@ -28,14 +28,17 @@ export default {
   computed: {
     base() {
       return this.$store.getters.info.bill / (this.rates['RUB'] / this.rates['EUR'])
-    }
+    },
+
   },
   methods: {
     getCurrency(currency) {
       return Math.floor(this.base * this.rates[currency])
+    },
+    currencyFilter(val) {
+      return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: val }).format(this.getCurrency(val))
     }
   },
- 
 }
 </script>
 
