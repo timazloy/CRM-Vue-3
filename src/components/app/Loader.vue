@@ -18,15 +18,14 @@
 <script>
 export default {
   name: "vLoader",
-  computed: {
-    color() {
-      const colors = ['spinner-green-only', 'spinner-blue-only', 'spinner-red-only']
-      return colors[Math.floor(Math.random() * 3)]
-    }
-  }
 }
 </script>
 
-<style scoped>
+<script setup>
+import {computed} from "vue";
 
-</style>
+const color = computed(() => {
+  const colors = ['spinner-green-only', 'spinner-blue-only', 'spinner-red-only']
+  return colors[Math.floor(Math.random() * 3)]
+})
+</script>
