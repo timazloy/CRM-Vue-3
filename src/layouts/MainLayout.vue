@@ -20,29 +20,28 @@
 </template>
 
 <script>
-import Navbar from "@/components/app/Navbar";
-import Sidebar from "@/components/app/Sidebar";
-
 export default {
   name: 'vMainLayout',
-  data: () => ({
-    isOpen: true,
-  }),
-  components: {
-    Navbar,
-    Sidebar,
-  },
-  async mounted() {
-    if (!Object.keys(this.$store.getters.info).length) {
-      await this.$store.dispatch('fetchInfo')
-    }
-  },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpen
-    },
-  },
-
 }
+</script>
+
+<script setup>
+import Navbar from "@/components/app/Navbar";
+import Sidebar from "@/components/app/Sidebar";
+import { ref, onMounted } from "vue";
+import { useStore } from 'vuex'
+const store = useStore()
+
+let isOpen = ref(true);
+
+const toggle = () => {
+  isOpen.value = !isOpen.value
+}
+
+onMounted(async () => {
+  if (!Object.keys(store.getters.info).length) {
+    await store.dispatch('fetchInfo')
+  }
+})
 
 </script>
